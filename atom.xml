@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Libi的博客</title>
+  <title>Libi&#39;s blog</title>
   <id>http://libisky.com/</id>
-  <updated>2015-12-02T10:20:35+08:00</updated>
+  <updated>2015-12-02T11:43:34+08:00</updated>
   <subtitle>主要是备忘笔记</subtitle>
   <link href="http://libisky.com/"></link>
   <author>
-    <name>Libi的博客</name>
+    <name>Libi&#39;s blog</name>
   </author>
   <entry>
     <title>简洁的静态博客构建工具 —— 纸小墨（InkPaper）</title>
