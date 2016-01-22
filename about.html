@@ -24,16 +24,16 @@
         <nav class="nav">
             <ul class="nav-list">
                 <li class="">
-                    <a href="/">首页</a>
+                    <a href="/">文章</a>
                 </li>
                 <li class="">
-                    <a href="/archive.html">存档</a>
+                    <a href="/archive.html">归档</a>
                 </li>
                 <li class="active">
-                    <a href="/about.html" target="_blank" >关于我</a>
+                    <a href="/about.html" target="_blank" >关于</a>
                 </li>
                 <li class="">
-                    <a href="/links.html" target="_blank" >友情链接</a>
+                    <a href="/links.html" target="_blank" >nav.links</a>
                 </li>
             </ul>
         </nav>
@@ -55,6 +55,30 @@
 </div>
             </div>
             
+<div id="comment">
+    
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_developer = 1;
+        var disqus_shortname = "libisky";
+            this.page.url = "http:\/\/localhost\/about"; 
+        };
+        (function () {
+        var disqus_config = function () {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+        Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    
+</div>
+
         </div>
         <div class="footer">
     <p>&copy; libisky 2015
