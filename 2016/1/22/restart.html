@@ -54,7 +54,7 @@
 
 <p>博客要重新开始，在考虑了很久以后决定使用静态博客程序，使用md跟写代码一样写文章，编译生成静态文件，用户访问速度快的同时，自己也觉得感觉逼格满满。</p>
 
-<p>因为对go语言的好感，所以使用了 fuxiaohei 的pugo，刚开始不久，各种特性就不在此阐述了，大家可以在此查看</p>
+<p>因为对go语言的好感，所以使用了 fuxiaohei 的pugo，刚开始不久，各种特性就不在此阐述了，大家可以<a href="https://github.com/go-xiaohei/pugo">在此</a>查看</p>
 
 <h3 id="新的开始">新的开始</h3>
 
@@ -66,22 +66,18 @@
     
     <div id="disqus_thread"></div>
     <script>
-        var disqus_developer = 1;
-        var disqus_shortname = "libisky";
-            this.page.url = "http:\/\/libisy.com\/2016\/1\/22\/restart"; 
-        };
-        (function () {
-        var disqus_config = function () {
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
-        Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+                var disqus_config = function () {
+                    this.page.url = "http:\/\/libisy.com\/2016\/1\/22\/restart"; 
+                };
+                (function () {
+                    var d = document, s = d.createElement('script');
+                    s.src = '//libisky.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+                powered by Disqus.</a></noscript>
     
     
 </div>
