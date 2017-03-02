@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>laravel - libisky</title>
+    <title>基于Heka，ElasticSearch和Kibana的分布式后端日志架构（一） - libisky</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="libi">
     <meta name="keywords" content="libi,golang,php,javascript"/>
-    <meta name="description" content="阐述遇到的各种问题，分享踩过的各种坑，记录懒得记的各种命令"/>
+    <meta name="description" content="基于Heka，ElasticSearch和Kibana的分布式后端日志架构（一）"/>
     <link href="/css/pure-min.css" type="text/css" rel="stylesheet" media="all">
     <link href="/css/blog.css" type="text/css" rel="stylesheet" media="all">
     <link href="/css/railscasts.css" type="text/css" rel="stylesheet" media="all"/>
 </head>
-<body class="post-tag" data-perma="post-tag-laravel">
+<body class="post" data-perma="heka-elasticserach-kibana-1">
 <div class="pure-g-r" id="layout">
     <div class="sidebar pure-u">
     <header class="header">
@@ -41,12 +41,8 @@
 </div>
     <div class="pure-u-1">
         <div class="content">
-            <div class="page-header">
-                <h1>所有文章</h1>
-            </div>
-            <h2>：laravel</h2>
             <div class="post">
-                <h3 class="post-header"><a href="/2017/3/2/heka-elasticserach-kibana-1.html">基于Heka，ElasticSearch和Kibana的分布式后端日志架构（一）</a></h3>
+                <h1 class="post-header">基于Heka，ElasticSearch和Kibana的分布式后端日志架构（一）</h1>
                 <div class="post-meta">
                     <small>2017-3-2</small>
                 </div>
@@ -227,181 +223,27 @@ hmac_key = &quot;xdd908lfcgikauexdi8elogusridaxoalf&quot;
 hmac_key = &quot;haeoufyaiofeugdsnzaogpi.ua,dp.804u&quot;
 </code></pre>
 </div>
-                <div class="more">
-                    <a href="/2017/3/2/heka-elasticserach-kibana-1.html" class="btn pure-button pure-button-primary">继续阅读..</a>
-                </div>
             </div>
             
-            <div class="post">
-                <h3 class="post-header"><a href="/2016/7/28/thrfit_in_laravel.html">Thrift在php框架laravel中的应用</a></h3>
-                <div class="post-meta">
-                    <small>2016-7-28</small>
-                </div>
-                <div class="post-description"><h2 id="前言">前言</h2>
-
-<p>最近在项目中遇到需要跨系统调用的需求，找了很多rpc框架对比,因为其他部分项目使用了golang语言，为了考虑日后系统间调用更加灵活，所以决定使用thrift框架。</p>
-
-<h2 id="thrif简介">Thrif简介</h2>
-
-<p>Thrift是一个支持跨语言(支持但不限于php,golang,java,c++,Ruby,Node.js等)支持远程调用rpc的软件框架.</p>
-
-<p>Thrift定义了一个简单的数据类型和服务接口标准，在使用时只需要实现定义好需要用的数据类型与服务（近似理解成调用函数）到.thrfit文件,使用thrfit指令生成对应版本的语言即刻,在下面会说如何编写.thrfit文件</p>
-
-<h2 id="thrift在osx下的安装">Thrift在osx下的安装</h2>
-
-<p>需要注意的是，thrift并不需要安装到服务器，只需要安装到你自己的开发机上，使用指令生成对应对应开发语言的代码就可以了。
- 我使用的系统是osx10.10，用的最简单的homebrew安装方式，只需要一行指令即刻</p>
-<pre><code>brew install thrift
-</code></pre>
-
-<p>在等待片刻后,键入thrift命令看到thrift帮助指令即安装成功.</p>
-
-<h2 id="thrift文件定义">.thrift文件定义</h2>
-
-<p>接下来我们需要根据项目需求来定义thrift文件,thrift支持的数据类型如下：</p>
-
-<ul>
-<li>基本类型：
-
-<ul>
-<li>bool：布尔值，true 或 false，对应 Java 的 boolean</li>
-<li>byte：8 位有符号整数，对应 Java 的 byte</li>
-<li>i16：16 位有符号整数，对应 Java 的 short</li>
-<li>i32：32 位有符号整数，对应 Java 的 int</li>
-<li>i64：64 位有符号整数，对应 Java 的 long</li>
-<li>double：64 位浮点数，对应 Java 的 double</li>
-<li>string：utf-8编码的字符串，对应 Java 的 String</li>
-</ul></li>
-<li>结构体类型：
-
-<ul>
-<li>struct：定义公共的对象，类似于 C 语言中的结构体定义，在 Java 中是一个 JavaBean</li>
-</ul></li>
-
-<li><p>容器类型：</p>
-
-<ul>
-<li>list：对应 Java 的 ArrayList</li>
-<li>set：对应 Java 的 HashSet</li>
-<li>map：对应 Java 的 HashMap</li>
-</ul></li>
-
-<li><p>异常类型：</p>
-
-<ul>
-<li>exception：对应 Java 的 Exception</li>
-</ul></li>
-
-<li><p>服务类型：</p>
-
-<ul>
-<li>service：对应服务的类</li>
-</ul></li>
-</ul>
-
-<p>在知道大概的基础数据类型以后，我们来举个例子，假如有2个系统，分别提供用户信息服务和订单服务，订单服务在接受到订单请求时需要获取用户信息。</p>
-
-<p>根据需求，我们可以定义一个服务类叫做 user ，它提供一个getinfo函数供调用，该函数需要传入一个整型的uid，返回一个map（定义struct更为准确，这里为了演示方便使用map）,写成user.thrift文件如下所示
-    namespace php user //命名空间</p>
-<pre><code>service user{
-        map&lt;i32,string&gt; getinfo(1:i32 uid)
-}
-</code></pre>
-
-<h2 id="代码生成">代码生成</h2>
-
-<p>定义好服务（类）以后，使用thrift -r -gen 命令接口生成各个语言对应的代码版本</p>
-<pre><code>thrift -r -gen php:server user.thrift 
-</code></pre>
-
-<p>命令执行成功以后会在改目录下生成一个gen-php的目录，直接在具体项目中引入即刻。</p>
-
-<h2 id="laravel框架调用">laravel框架调用</h2>
-
-<p>thrift官网提供了各个语言版本的类库供调用,项目地址：<a href="https://github.com/apache/thrift/">https://github.com/apache/thrift/</a></p>
-
-<p>php版本使用composer依赖库进行管理,laravel集成了composer包管理，所以只需要执行
-    composer require apache/thrift
-即可引入成功，在其他php项目中引入请参见compser说明</p>
-
-<p>引入类库以后需要继续引入上一步生成的协议代码,这里我将gen-php文件夹里的user文件夹复制到laravel的跟目录的thrift目录下，并且在composer.json中添加
-    &ldquo;autoload&rdquo;{
-        &ldquo;classmap&rdquo;:[
-            &ldquo;thrift&rdquo;
-        ]
-    }
-执行下面代码即刻引入成功
-    composer dump-auto</p>
-
-<h3 id="laravel服务端添加代码">laravel服务端添加代码</h3>
-
-<p>在laravel控制器中添加以下代码，并绑定路由</p>
-<pre><code>use Thrift\Transport\TBufferedTransport;
-use Thrift\Protocol\TBinaryProtocol;
-use Thrift\Transport\THttpClient;
-use Thrift\Transport\TPhpStream;
-header('Content-Type', 'application/x-thrift');
-    $handler = new user();//这里是定义在服务端提供服务的类
-    $processor = new \thrift\opasProcessor($handler);
-
-
-    $transport = new TBufferedTransport(new TPhpStream(TPhpStream::MODE_R | TPhpStream::MODE_W));
-    $protocol = new TBinaryProtocol($transport, true, true);
-
-    $transport-&gt;open();
-    $processor-&gt;process($protocol, $protocol);
-    $transport-&gt;close();
-</code></pre>
-
-<p>添加类服务定义,绑定\user\userIf接口</p>
-<pre><code>class user implements \user\userIf{
-    function getinfo($uid){
-        $user = User::find($uid);
-        return $user;
-    }
-}
-</code></pre>
-
-<h3 id="laravel客户端添加代码">laravel客户端添加代码</h3>
-
-<p>这里使用http协议调用远程方法，代码如下
-    try {</p>
-<pre><code>        $socket = new THttpClient('www.xxx.com', 80, '/thrift/server');//服务端定义的url
-
-        $transport = new TBufferedTransport($socket, 1024, 1024);
-        $protocol = new TBinaryProtocol($transport);
-        $client = new thrift\opasClient($protocol);
-
-        $transport-&gt;open();
-
-
-        $result = $client-&gt;getinfo(1);//调用远程方法
-        $transport-&gt;close();
-        return $result;
-
-    } catch (TException $tx) {
-        print 'TException: '.$tx-&gt;getMessage().&quot;\n&quot;;
-        return null;
-    }
-</code></pre>
-
-<h2 id="其他">其他</h2>
-
-<p>在上面的getinfo方法返回的是一个对象,直接复制代码运行会接收不到返回值，可以修改为返回一个array(&ldquo;key&rdquo;=&gt;&ldquo;value&rdquo;)数组即可。</p>
-
-<p>本文内容纯属个人理解，如有错误纰漏欢迎大家指正。</p>
+<div id="comment">
+    
+    
+    <div class="row">
+        <div class="ds-thread" data-thread-key="heka-elasticserach-kibana-1" data-title="基于Heka，ElasticSearch和Kibana的分布式后端日志架构（一） - libisky" data-url="http://libisy.com/2017/3/2/heka-elasticserach-kibana-1.html"></div>
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:"libisky"};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+    </div>
 </div>
-                <div class="more">
-                    <a href="/2016/7/28/thrfit_in_laravel.html" class="btn pure-button pure-button-primary">继续阅读..</a>
-                </div>
-            </div>
-            
-        </div>
-        <div class="pagination pure-g">
-            <ul>
-                
-                
-            </ul>
+
         </div>
         <div class="footer">
     <p>&copy; libisky 2015
